@@ -1,0 +1,29 @@
+{
+  "expo": {
+    "name": "AustraliasHot",
+    "slug": "AustraliasHot",
+    "platforms": ["ios", "android", "web"],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "sdkVersion": "37.0.0",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.weather.app",
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-2420896677065299~5640109493"
+      }
+    }
+  }
+}
