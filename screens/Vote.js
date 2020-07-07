@@ -90,6 +90,7 @@ export default function Vote() {
 
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
 
   //limiting for the number of votes it will return
   const limit = 10;
@@ -103,12 +104,19 @@ export default function Vote() {
 
   //this is the firebase function for pagination
   const [lastDoc, setLastDoc] = useState(null);
-  const [loadMore, setLoadMore] = useState(0);
 
   const [tempRangesArray, setTempRangesArray] = useState([]);
   const [changed, setChanged] = useState(0);
 
   const [likeButtonColor, setLikeButtonColor] = useState("#b0b0b0");
+
+  function resetVoteCards() {
+    setLastDoc(null);
+    let num = refresh + 1;
+    setRefresh(num);
+    captionList = [];
+    setData(captionList);
+  }
 
   //resets the data and researches when the sorting value changes
   //IMPORTANT: Keep it in this spot
@@ -116,16 +124,12 @@ export default function Vote() {
     setChanged(changed + 1);
     if (changed > 0) {
       //resetting the pagination
-      setLastDoc(null);
-      let num = refresh + 1;
-      setRefresh(num);
-      captionList = [];
-      setData(captionList);
+      resetVoteCards();
     }
   }, [selected]);
 
   useEffect(() => {
-    setRefreshing(true);
+    setLoadingMore(true);
     if (lastDoc == null) {
       console.log("Running from last doc null");
       db.collectionGroup("captions")
@@ -134,7 +138,7 @@ export default function Vote() {
         .limit(limit)
         .get()
         .then((data) => {
-          // console.log(data);
+          if (data.size == 0) setLoadingMore(false);
           setLastDoc(data.docs[data.docs.length - 1]);
           data.forEach((doc) => {
             let docData = {
@@ -147,39 +151,11 @@ export default function Vote() {
               console.log("It tried to duplicate something");
             }
             // doc.get("likes").push("test");
+            setLoadingMore(false);
             setRefreshing(false);
           });
           setData(captionList);
           setLoading(false);
-          setRefreshing(false);
-        });
-    } else {
-      console.log("Running from here");
-      setRefreshing(true);
-      db.collectionGroup("captions")
-        .where("isVisible", "==", true)
-        .orderBy(sortOptions[selected][0], sortOptions[selected][1])
-        .startAfter(lastDoc)
-        .limit(limit)
-        .get()
-        .then((data) => {
-          setLastDoc(data.docs[data.docs.length - 1]);
-          data.forEach((doc) => {
-            let docData = {
-              data: doc.data(),
-              id: doc.id,
-            };
-            // captionList.push(docData);
-            if (!captionList.includes(docData)) {
-              captionList.push(docData);
-            } else {
-              console.log("It tried to duplicate something");
-            }
-            setRefreshing(false);
-          });
-          setData(captionList);
-          setLoading(false);
-          setRefreshing(false);
         });
     }
 
@@ -205,13 +181,24 @@ export default function Vote() {
         ]);
       }
     });
-  }, [loadMore, refresh]);
+  }, [refresh]);
+
+  let updatedOnce = 0;
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       //setting if a user is logged in
+      updatedOnce++;
       if (user) {
         setSignedIn(true);
+        //checking if it has been updated more then once because it updated at the start and then when it changes so ti will run the same query twice
+        if (updatedOnce > 1) {
+          setLastDoc(null);
+          let num = refresh + 1;
+          setRefresh(num);
+          captionList = [];
+          setData(captionList);
+        }
       } else {
         setSignedIn(false);
       }
@@ -239,20 +226,59 @@ export default function Vote() {
             onRefresh={() => {
               setRefreshing(true);
               //resetting the pagination
-              setLastDoc(null);
-              let num = refresh + 1;
-              setRefresh(num);
-              captionList = [];
+              resetVoteCards();
             }}
           />
         }
         data={data}
+        ListFooterComponent={
+          <View>
+            <ActivityIndicator
+              size="large"
+              style={{
+                alignSelf: "center",
+              }}
+              animating={loadingMore}
+              color={getColor()}
+            />
+          </View>
+        }
         ListHeaderComponent={<VoteHeader />}
         keyExtractor={(item) => item.id}
         onEndReachedThreshold={0.1}
         onEndReached={() => {
           console.log("At the end");
-          setLoadMore(loadMore + 1);
+          if (lastDoc != null) {
+            console.log("Running from here");
+            setLoadingMore(true);
+            //loading the next page of data
+            db.collectionGroup("captions")
+              .where("isVisible", "==", true)
+              .orderBy(sortOptions[selected][0], sortOptions[selected][1])
+              .startAfter(lastDoc)
+              .limit(limit)
+              .get()
+              .then((data) => {
+                if (data.size == 0) setLoadingMore(false);
+                setLastDoc(data.docs[data.docs.length - 1]);
+                data.forEach((doc) => {
+                  let docData = {
+                    data: doc.data(),
+                    id: doc.id,
+                  };
+                  // captionList.push(docData);
+                  if (!captionList.includes(docData)) {
+                    captionList.push(docData);
+                  } else {
+                    console.log("It tried to duplicate something");
+                  }
+                  setLoadingMore(false);
+                  setRefreshing(false);
+                });
+                setData(captionList);
+                setLoading(false);
+              });
+          }
         }}
         renderItem={({ item }) => {
           if (signedIn) {

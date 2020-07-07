@@ -27,7 +27,11 @@ export default function ChangePassword() {
   });
 
   const [hidePassword, setHidePassword] = useState(true);
+  const [hideOldPassword, setHideOldPassword] = useState(true);
+
   const [passwordIcon, setPasswordIcon] = useState("md-eye-off");
+  const [oldPasswordIcon, setOldPasswordIcon] = useState("md-eye-off");
+
   const [password, setPassword] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -44,21 +48,21 @@ export default function ChangePassword() {
           placeholder="Old Password"
           placeholderTextColor="#818181"
           style={styles.textArea}
-          secureTextEntry={hidePassword}
+          secureTextEntry={hideOldPassword}
           autoCapitalize="none"
           value={oldPassword}
           onChangeText={(text) => setOldPassword(text)}
         />
         <TouchableOpacity
           onPress={() => {
-            setHidePassword(!hidePassword);
+            setHideOldPassword(!hideOldPassword);
             //changing the icon of the password show
-            if (passwordIcon === "md-eye") setPasswordIcon("md-eye-off");
-            else setPasswordIcon("md-eye");
+            if (oldPasswordIcon === "md-eye") setOldPasswordIcon("md-eye-off");
+            else setOldPasswordIcon("md-eye");
           }}
           style={styles.passwordShow}
         >
-          <Ionicons name={passwordIcon} size={24} color="black" />
+          <Ionicons name={oldPasswordIcon} size={24} color="black" />
         </TouchableOpacity>
       </View>
       <View style={styles.inputContainer}>
@@ -97,7 +101,7 @@ export default function ChangePassword() {
         }}
         titleStyle={{ fontSize: 20, fontFamily: "Inter_300Light" }}
         onPress={() => {
-          if (password === "") {
+          if (password === "" || oldPassword === "") {
             Alert.alert(
               "Missing Fields",
               "Please make sure all inputs are filled out."

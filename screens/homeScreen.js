@@ -41,21 +41,6 @@ export default function homeScreen() {
 
   const [futureDates, setFutureDate] = useState([]);
 
-  function randomDocNum(min, max) {
-    return Math.random() * (max - min) + min;
-  }
-
-  // useEffect(() => {
-  //   db.collection("posts")
-  //     .get()
-  //     .then((snapshot) => {
-  //       snapshot.forEach((doc) => {
-  //         setSentence(doc.data().sentence);
-  //         setFirebaseLoading(false);
-  //       });
-  //     });
-  // }, []);
-
   function geoSuccess(position) {
     setLong(position.coords.longitude);
     setLat(position.coords.latitude);
@@ -66,9 +51,8 @@ export default function homeScreen() {
     if (err) {
       Alert.alert(
         "Location Not Found",
-        "There was error finding your location please make sure that this app inlcudes location permissions"
+        'There was error finding your location. Please make sure that "Location Permissions" are enabled.'
       );
-      return;
     }
   }
 

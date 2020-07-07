@@ -146,6 +146,7 @@ export default function homeScreen({
   const [trendingDisplay, setTrendingDisplay] = useState("none");
   const [adShown, setAdShown] = useState("flex");
 
+  // AsyncStorage.removeItem("units");
   useEffect(() => {
     AsyncStorage.getItem("units").then((result) => {
       if (result == null) {
@@ -189,10 +190,6 @@ export default function homeScreen({
         randomNum = randomDocNum(1, size);
       }
       seenNums.push(randomNum);
-      console.log(seenNums);
-      console.log("Size: " + size);
-
-      console.log("Random Number: " + randomNum);
 
       if (randomNum === 0) {
         randomNum = randomDocNum(1, size);
@@ -296,6 +293,7 @@ export default function homeScreen({
 
   if (!fontsLoaded && firebaseLoading && randomNum === 0)
     return <LoadingScreen />;
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -407,16 +405,6 @@ export default function homeScreen({
         <AdMobBanner
           bannerSize="mediumRectangle"
           adUnitID="ca-app-pub-2420896677065299/4135456134"
-          onDidFailToReceiveAdWithError={(e) => setAdShown("none")}
-          style={{
-            marginTop: 10,
-            display: adShown,
-          }}
-          servePersonalizedAds={true}
-        />
-        <AdMobBanner
-          bannerSize="mediumRectangle"
-          adUnitID="ca-app-pub-2420896677065299/8529727213"
           onDidFailToReceiveAdWithError={(e) => setAdShown("none")}
           style={{
             marginTop: 10,
