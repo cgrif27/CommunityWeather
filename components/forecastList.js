@@ -12,11 +12,21 @@ export default function ForecastList({ iconImage, temp, day, info }) {
     Inter_300Light,
   });
   const [newInfo, setNewInfo] = useState(info);
+  const [icon, setIcon] = useState(
+    `http://openweathermap.org/img/wn/${iconImage}@2x.png`
+  );
 
   //changing the default weather text
   useEffect(() => {
     if (info === "Clear") {
       setNewInfo("Sunny");
+    }
+
+    //changing the sunny icon
+    if (iconImage == "01d" || iconImage == "01n") {
+      setIcon(
+        "https://firebasestorage.googleapis.com/v0/b/australiahot-d5cc6.appspot.com/o/sunIcon.png?alt=media&token=4c100dfb-64ac-46f3-b6ad-b7b06cae96a1"
+      );
     }
   }, []);
 
@@ -27,7 +37,7 @@ export default function ForecastList({ iconImage, temp, day, info }) {
         <View style={styles.iconView}>
           <Image
             source={{
-              uri: iconImage,
+              uri: icon,
             }}
             style={styles.iconImage}
           />

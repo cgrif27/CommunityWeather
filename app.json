@@ -9,7 +9,7 @@
     "sdkVersion": "37.0.0",
     "splash": {
       "image": "./assets/splashscreen.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "updates": {

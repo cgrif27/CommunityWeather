@@ -378,20 +378,10 @@ export default function homeScreen({
             wind={wind}
             high={high}
           />
-          {/* <FlatList
-              data={futureDates}
-              renderItem={(date) => (
-                <ForecastList
-                  iconImage={`http://openweathermap.org/img/wn/${date.item.weather[0].icon}@2x.png`}
-                  temp={celciusConverter(date.item.temp.day)}
-                  day={timeToDate(date.item.dt)}
-                />
-              )}
-              key={futureDates.dt}
-            /> */}
+
           {futureDates.map((date) => (
             <ForecastList
-              iconImage={`http://openweathermap.org/img/wn/${date.weather[0].icon}@2x.png`}
+              iconImage={date.weather[0].icon}
               temp={tempConverter(date.temp.day, units)}
               day={timeToDate(date.dt)}
               key={date.dt}
@@ -407,7 +397,7 @@ export default function homeScreen({
           adUnitID="ca-app-pub-2420896677065299/4135456134"
           onDidFailToReceiveAdWithError={(e) => setAdShown("none")}
           style={{
-            marginTop: 10,
+            marginTop: 20,
             display: adShown,
           }}
           servePersonalizedAds={true}
@@ -504,6 +494,5 @@ const styles = StyleSheet.create({
   },
   ads: {
     alignSelf: "center",
-    marginTop: 20,
   },
 });

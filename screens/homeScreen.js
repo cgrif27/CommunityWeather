@@ -88,7 +88,11 @@ export default function homeScreen() {
     )
       .then((data) => data.json())
       .then((info) => {
-        setCurrentStatus(info.current.weather[0].main);
+        //changing the default weather text
+        if (info.current.weather[0].main === "Clear") {
+          setCurrentStatus("Sunny");
+        } else setCurrentStatus(info.current.weather[0].main);
+
         setCurrentTemp(info.current.temp);
         setHumidity(info.current.humidity + "%");
         setLowTemp(celciusConverter(info.daily[0].temp.min));
