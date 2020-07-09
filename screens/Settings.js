@@ -24,8 +24,7 @@ function CaptionTypeHeader() {
     <React.Fragment>
       <Text style={styles.unitsHeading}>Select Caption Type</Text>
       <Text style={styles.unitsSub}>
-        This will change the type of caption you would like on the home screen.
-        The two options are "Random Caption" or "Most Popular Caption".
+        This will change the type of caption you will see on your home screen.
       </Text>
     </React.Fragment>
   );
@@ -72,7 +71,6 @@ function CaptionType() {
             title={item.title}
             leftIcon={{ name: item.icon }}
             bottomDivider
-            chevron
             onPress={() => {
               AsyncStorage.setItem("captionType", item.id);
               setCaptionType(item.id);
@@ -93,7 +91,6 @@ function CaptionType() {
             title={item.title}
             leftIcon={{ name: item.icon }}
             bottomDivider
-            chevron
             onPress={() => {
               AsyncStorage.setItem("captionType", item.id);
               setCaptionType(item.id);
@@ -114,7 +111,6 @@ function CaptionType() {
           title={item.title}
           leftIcon={{ name: item.icon }}
           bottomDivider
-          chevron
           onPress={() => {
             AsyncStorage.setItem("units", item.id);
             setCaptionType(item.id);
@@ -135,7 +131,7 @@ function TempUnitHeader() {
       <View style={styles.unitsView}>
         <Text style={styles.unitsHeading}>Select Temperature Unit</Text>
         <Text style={styles.unitsSub}>
-          Once changed please restart the app to have the changes take effect
+          Once changed, please restart the app to have the changes take effect.
         </Text>
       </View>
     </React.Fragment>
@@ -199,7 +195,6 @@ export default function Settings({ navigation }) {
               title={item.title}
               leftIcon={{ name: item.icon }}
               bottomDivider
-              chevron
               onPress={() => {
                 AsyncStorage.setItem("units", item.id);
                 setUnits(item.id);
@@ -223,7 +218,6 @@ export default function Settings({ navigation }) {
               title={item.title}
               leftIcon={{ name: item.icon }}
               bottomDivider
-              chevron
               onPress={() => {
                 AsyncStorage.setItem("units", item.id);
                 setUnits(item.id);
@@ -247,7 +241,6 @@ export default function Settings({ navigation }) {
             title={item.title}
             leftIcon={{ name: item.icon }}
             bottomDivider
-            chevron
             onPress={() => {
               AsyncStorage.setItem("units", item.id);
               setUnits(item.id);

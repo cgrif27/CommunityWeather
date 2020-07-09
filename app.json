@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Funny Forecast",
-    "slug": "AustraliasHot",
+    "slug": "FunnyForecast",
     "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
     "orientation": "portrait",
@@ -22,8 +22,9 @@
     "android": {
       "package": "com.funnyforecast.app",
       "config": {
-        "googleMobileAdsAppId": "ca-app-pub-2420896677065299~5640109493"
-      }
+        "googleMobileAdsAppId": "ca-app-pub-2420896677065299~6878175132"
+      },
+      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"]
     }
   }
 }

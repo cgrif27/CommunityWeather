@@ -212,6 +212,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingTop: 10,
     paddingLeft: 10,
+    paddingRight: 40,
     borderWidth: 1,
     textAlignVertical: "top",
     alignSelf: "center",

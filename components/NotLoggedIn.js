@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   subheading: {
     textAlign: "center",
     fontFamily: "Inter_300Light",
-    fontSize: 20,
+    fontSize: 15,
     color: "#333",
   },
   instructions: {

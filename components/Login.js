@@ -10,20 +10,12 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
+  Image,
 } from "react-native";
-import {
-  Container,
-  Header,
-  Content,
-  Form,
-  Item,
-  Input,
-  Label,
-} from "native-base";
+
 import { Button } from "react-native-elements";
 import getColor from "../localFunctions/getColor";
 import { Entypo, Ionicons } from "@expo/vector-icons";
-import { SocialIcon } from "react-native-elements";
 import {
   useFonts,
   Inter_200ExtraLight,
@@ -50,30 +42,6 @@ function signIn(email, password) {
       });
     });
   return firebase.auth().signInWithEmailAndPassword(email, password);
-}
-
-async function signInWithGoogle() {
-  const provider = new auth.GoogleAuthProvider();
-  firebase
-    .auth()
-    .signInWithPopup(provider)
-    .then(function (result) {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      var token = result.credential.accessToken;
-      // The signed-in user info.
-      var user = result.user;
-      // ...
-    })
-    .catch(function (error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // The email of the user's account used.
-      var email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      var credential = error.credential;
-      // ...
-    });
 }
 
 export default function Login({ navigation }) {
@@ -104,6 +72,13 @@ export default function Login({ navigation }) {
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.container}>
+          <Image
+            source={{
+              uri:
+                "https://lh3.googleusercontent.com/EmXXP4hbcAN2DehzM9Fd-Yf8txgLSTIh72o_pOjTl3DEBH0Qg3HkJ9er2MiDM1MMa1zI2OJPuZ2dOd-iGZfWi4ZZzswynsjhvKqeKo_vVYFvgEARtkLfAUxKoWmIcucns0ofaIGhxd8pZEBYHf0XFR1w5HBifXvedTcKcFYs646Am1lvCxb3yzm7iNRWx1V1Yhkji0MCNYBeuDalMiRPhqGd87Pi6-ry4ccpnzddwabYAxRdS25IsKl__eDJJIg3dR-bfog4OuQVEdD3VPwuvHdDE82N4BYiQO5DN_mHV_B8MIqR9GW65ccsc-kdzIYshprgMizsthIrPqlDzuxpwDcrtG6k3fZyQKBWUuQQpSC5nvA6zWgVStQmEqTqeWpP3lTuw0_UPHdu5ODQzwPLoB9dUDQhohanoZvgFdnMpNSj7nC7kpRcnNUGYp5o0Yjy6worPqJVkvg3MB0cn7tthm2ALukZG42WMl6gw0mU9DucQO7_MLC_ST9e8acxtDyCFSEcIEVysy1KgGgHepqvTh3yXTI_IS9IPc_bqJokIQhHvx7eLhwQlwE_Mpm-EIJT1yR-YAtnykNl3vh7rYYM5xAxj3kjzC3P6_elH1t5C1_X1e-FMxfgLMWX9X0-J5q_5F5-KpzgOa7fx-r6GFSqEn2r-CSMuCoYhs8ftX2CCbPpk3K3m2EF9rtDJ_UI=w1101-h1265-no?authuser=0",
+            }}
+            style={styles.iconImage}
+          />
           <Text style={styles.headerText}>Login</Text>
           <View style={styles.inputContainer}>
             <Ionicons
@@ -146,7 +121,6 @@ export default function Login({ navigation }) {
               <Ionicons name={passwordIcon} size={24} color="black" />
             </TouchableOpacity>
           </View>
-
           <Button
             loading={loading}
             title="Login"
@@ -193,28 +167,6 @@ export default function Login({ navigation }) {
               setModalVisible(false);
             }}
           />
-
-          {/* <View style={styles.socialIcons}>
-          <Text style={styles.orMessage}>OR</Text>
-
-          <TouchableOpacity>
-            <SocialIcon
-              type="facebook"
-              title="Sign In With Facebook"
-              raised={true}
-              button
-            />
-          </TouchableOpacity>
-
-          <TouchableOpacity>
-            <SocialIcon
-              type="google"
-              title="Sign In With Google"
-              raised={true}
-              button
-            />
-          </TouchableOpacity>
-        </View> */}
         </View>
       </TouchableWithoutFeedback>
     </ScrollView>
@@ -241,6 +193,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingTop: 10,
     paddingLeft: 10,
+    paddingRight: 40,
     borderWidth: 1,
     textAlignVertical: "top",
     alignSelf: "center",
@@ -280,5 +233,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
     color: getColor(),
     fontFamily: "Inter_300Light",
+  },
+  iconImage: {
+    width: 200,
+    height: 200,
+    alignSelf: "center",
   },
 });

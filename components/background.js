@@ -12,6 +12,7 @@ import {
   RefreshControl,
   AsyncStorage,
   Alert,
+  StatusBar,
 } from "react-native";
 //change the font of everythign using this https://stackoverflow.com/questions/35255645/how-to-set-default-font-family-in-react-native
 import {
@@ -323,21 +324,13 @@ export default function homeScreen({
         >
           <AntDesign name="sound" size={30} color={textColor} />
         </TouchableOpacity>
-
-        {/* <TouchableOpacity
-          style={styles.refreshView}
-          onPress={() => {
-            let num = refresh + 1;
-            setRefresh(num);
-          }}
-        >
-          <Ionicons name="md-refresh" size={30} color={textColor} />
-        </TouchableOpacity> */}
+        <View>
+          <Text style={styles.numCaptions}>Number of Captions: {size}</Text>
+        </View>
 
         <View style={styles.tempView}>
           <Text style={styles.weatherType}>{currentStatus}</Text>
           <Text style={styles.weatherTemp}>{convertedTemp}°</Text>
-          {/* Maybe get rid of the date */}
           <Text style={styles.date}>{getDateString()}</Text>
         </View>
 
@@ -394,7 +387,7 @@ export default function homeScreen({
       <View style={styles.ads}>
         <AdMobBanner
           bannerSize="mediumRectangle"
-          adUnitID="ca-app-pub-2420896677065299/4135456134"
+          adUnitID="ca-app-pub-2420896677065299/4060440102"
           onDidFailToReceiveAdWithError={(e) => setAdShown("none")}
           style={{
             marginTop: 20,
@@ -461,6 +454,7 @@ const styles = StyleSheet.create({
   captionCreator: {
     fontFamily: "Inter_200ExtraLight",
     textAlign: "center",
+    padding: 5,
   },
 
   speakerView: {
@@ -491,6 +485,14 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: "center",
     alignItems: "center",
+  },
+  numCaptions: {
+    top: StatusBar.currentHeight + 10,
+    padding: 10,
+    paddingLeft: 20,
+    fontFamily: "Inter_200ExtraLight",
+    color: "white",
+    fontSize: 16,
   },
   ads: {
     alignSelf: "center",

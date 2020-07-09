@@ -32,8 +32,7 @@ function VoteHeader() {
       <View style={styles.container}>
         <Text style={styles.heading}>Vote on Your Favourite Captions</Text>
         <Text style={styles.sub}>
-          Here you can see everyones captions and choose your favourite ones.
-          After you find one you like, tap the heart button.
+          Here you can see everyones captions and heart your favourite ones.
         </Text>
         <View style={styles.sorterView}>
           <Text style={styles.sortHeader}>Sort by:</Text>
@@ -266,7 +265,6 @@ export default function Vote() {
                     data: doc.data(),
                     id: doc.id,
                   };
-                  // captionList.push(docData);
                   if (!captionList.includes(docData)) {
                     captionList.push(docData);
                   } else {
