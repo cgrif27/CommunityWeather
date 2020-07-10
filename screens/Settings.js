@@ -16,8 +16,6 @@ import {
 } from "@expo-google-fonts/inter";
 import { ScrollView } from "react-native-gesture-handler";
 import getColor from "../localFunctions/getColor";
-import firebase from "../firebase";
-import UnitSelector from "../components/unitSelector";
 
 function CaptionTypeHeader() {
   return (

@@ -10,7 +10,6 @@ npm-debug.*
 web-build/
 web-report/
 .env
-firebase.js
 
 # macOS
 .DS_Store

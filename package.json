@@ -33,7 +33,10 @@
     "react-native-screens": "^2.2.0",
     "react-native-tab-view": "^2.14.4",
     "react-navigation": "^4.3.9",
-    "react-navigation-stack": "^2.7.0"
+    "react-navigation-stack": "^2.7.0",
+    "expo-permissions": "~8.1.0",
+    "expo-location": "~8.1.0",
+    "expo-intent-launcher": "~8.1.0"
   },
   "devDependencies": {},
   "private": true

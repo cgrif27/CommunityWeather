@@ -37,11 +37,8 @@ const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
   //setting the color of the bar
-  const [barColor, setBarColor] = useState("#242B73");
+  const barColor = getColor();
   let hourTime = new Date().getHours();
-  useEffect(() => {
-    setBarColor(getColor());
-  }, []);
 
   AsyncStorage.getItem("captionType").then((result) => {
     if (result == null) {

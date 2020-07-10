@@ -24,7 +24,7 @@
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-2420896677065299~6878175132"
       },
-      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"]
+      "permissions": ["ACCESS_COARSE_LOCATION"]
     }
   }
 }

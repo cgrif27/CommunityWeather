@@ -14,7 +14,6 @@ import {
   Alert,
   StatusBar,
 } from "react-native";
-//change the font of everythign using this https://stackoverflow.com/questions/35255645/how-to-set-default-font-family-in-react-native
 import {
   useFonts,
   Inter_100Thin,
@@ -121,6 +120,7 @@ export default function homeScreen({
   wind,
   high,
   futureDates,
+  bottomImage,
 }) {
   let [fontsLoaded] = useFonts({
     Inter_100Thin,
@@ -182,7 +182,8 @@ export default function homeScreen({
         .get()
         .then((data) => {
           setSize(data.data().count);
-        });
+        })
+        .catch((e) => alert(e));
 
       //checks to see if there is no more to grab and will allow them to be reshown
       if (seenNums.length === size + 1) seenNums = [];
@@ -210,12 +211,6 @@ export default function homeScreen({
           }
 
           data.forEach((doc) => {
-            //if the caption is deleted it will grab another document till it finds one that is
-            // if (!doc.data().isVisible) {
-            //   setRefresh(refresh + 1);
-            //   return;
-            // }
-
             setSentence(doc.data().sentence);
             setFirebaseLoading(false);
             setCreator(doc.data().creator);
@@ -314,7 +309,7 @@ export default function homeScreen({
         source={{
           uri: image,
         }}
-        resizeMode="repeat"
+        resizeMode="cover"
       >
         <TouchableOpacity
           style={styles.speakerView}
@@ -324,9 +319,9 @@ export default function homeScreen({
         >
           <AntDesign name="sound" size={30} color={textColor} />
         </TouchableOpacity>
-        <View>
+        {/* <View>
           <Text style={styles.numCaptions}>Number of Captions: {size}</Text>
-        </View>
+        </View> */}
 
         <View style={styles.tempView}>
           <Text style={styles.weatherType}>{currentStatus}</Text>
@@ -351,7 +346,15 @@ export default function homeScreen({
           <Text style={styles.caption}>{sentence}</Text>
           <Text style={styles.captionCreator}>Creator: {creator}</Text>
         </View>
+      </ImageBackground>
 
+      <ImageBackground
+        style={styles.background}
+        source={{
+          uri: bottomImage,
+        }}
+        resizeMode="cover"
+      >
         <View style={styles.moreInfo}>
           <Text
             style={{
@@ -382,20 +385,20 @@ export default function homeScreen({
             />
           ))}
         </View>
+        {/* <View style={{ height: 350 }} /> */}
+        <View style={styles.ads}>
+          <AdMobBanner
+            bannerSize="mediumRectangle"
+            adUnitID="ca-app-pub-2420896677065299/4060440102"
+            onDidFailToReceiveAdWithError={(e) => setAdShown("none")}
+            style={{
+              marginTop: 20,
+              display: adShown,
+            }}
+            servePersonalizedAds={true}
+          />
+        </View>
       </ImageBackground>
-      {/* <View style={{ height: 350 }} /> */}
-      <View style={styles.ads}>
-        <AdMobBanner
-          bannerSize="mediumRectangle"
-          adUnitID="ca-app-pub-2420896677065299/4060440102"
-          onDidFailToReceiveAdWithError={(e) => setAdShown("none")}
-          style={{
-            marginTop: 20,
-            display: adShown,
-          }}
-          servePersonalizedAds={true}
-        />
-      </View>
     </ScrollView>
   );
 }

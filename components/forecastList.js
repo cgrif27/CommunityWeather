@@ -25,7 +25,7 @@ export default function ForecastList({ iconImage, temp, day, info }) {
     //changing the sunny icon
     if (iconImage == "01d" || iconImage == "01n") {
       setIcon(
-        "https://lh3.googleusercontent.com/6UxleMQvqKV6mW3ZhrVpQC3j3G15c2TXhrN-VUb1tNIfnBELJEgqxIhkOD_jIpQqbdTlzSLzvs7QoiNzad00liORdi7-lcHOu8tHP9KDU4UW6EthxVINw8FMLVgG6TwUd-z2P-yT3kNc_x0Mu2t5Gv4YFr2feYbPkPfz62iOhOB8_C5M1Xo4GRelXU4UlwAlfuuvuVesp9vYZnbqpuwgssaRyh0sREM_IBq1JkWAptMKLYpaMt2N-jMcPTxrvUMvHwojJd1-ntglBlOXwO1FpES_kmgiY2ysbltkT-o-_2Y_hcb-gt3fmcmSuNt7kSqAbcViG8qcE_hcdJcrwxWWqPZ7ob1RTXII5InqBNlcj2Zgte-QMKDwvdso6UagAUFEr7095INWpGqBf5pgUDhgad3iPMS0Jqn_D9ru_v7-Eu5NFlzZthwVuecid-A4h4PbEZX-U6zByj6mDqcdZd6iPm4EDKM9NWIS-9XNxT02TUjBP6Ru_kkdpal9GLDyGoYpqfv9aw18IYPQqObkDl08HWHXlCBf8ryHNWkxHw1qB29eRuRSrlNq-j2NPDKwXEtmsZ7GqFqIcJxheQplxHGXFErlvtpm_ROjTkscolo2dUeTS3zju2GAoNdOJ85h2qhXpS2mWeWslmpNUf93LbnZyu8uAcW0HT5OBUVxCJ-WLkvLEokS06-qLrpEdoas=s100-no?authuser=0"
+        "https://firebasestorage.googleapis.com/v0/b/australiahot-d5cc6.appspot.com/o/yellowSun.png?alt=media&token=87a48135-0cfe-4c6d-a49f-aac39d24ddb7"
       );
     }
   }, []);

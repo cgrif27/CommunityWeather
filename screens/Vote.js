@@ -59,7 +59,7 @@ function VoteHeader() {
   );
 }
 
-export default function Vote() {
+export default function Vote({ navigation }) {
   let [fontsLoaded] = useFonts({
     Inter_200ExtraLight,
     Inter_300Light,

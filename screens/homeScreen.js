@@ -6,11 +6,15 @@ import {
   ImageBackground,
   Dimensions,
   Alert,
+  AppState,
 } from "react-native";
 import Background from "../components/background";
 import axios from "axios";
 import LoadingScreen from "./loadingScreen";
 import firebase from "../firebase";
+import * as Permissions from "expo-permissions";
+import * as Location from "expo-location";
+import LocNotAllowed from "../screens/locationNotAllowed";
 
 const db = firebase.firestore();
 
@@ -18,7 +22,6 @@ function celciusConverter(temp) {
   let convert = temp - 273.15;
   return convert.toFixed(1);
 }
-
 export default function homeScreen() {
   //gettign the users geoLocation
   let geoOptions = {
@@ -40,32 +43,47 @@ export default function homeScreen() {
   const [highTemp, setHighTemp] = useState("");
 
   const [futureDates, setFutureDate] = useState([]);
+  const [locationAllowed, setLocationAllowed] = useState(true);
 
-  function geoSuccess(position) {
-    setLong(position.coords.longitude);
-    setLat(position.coords.latitude);
-    setGettingLoc(false);
-  }
+  const [appState, setAppState] = useState(AppState.currentState);
 
-  function geoFail(err) {
-    if (err) {
-      Alert.alert(
-        "Location Not Found",
-        'There was error finding your location. Please make sure that "Location Permissions" are enabled.'
-      );
+  //getting the location of the user
+
+  async function getLocationAsync() {
+    try {
+      let { status } = await Permissions.askAsync(Permissions.LOCATION);
+      if (status !== "granted") {
+        setLocationAllowed(false);
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLong(location.coords.longitude);
+      setLat(location.coords.latitude);
+      setGettingLoc(false);
+      setLocationAllowed(true);
+      console.log("Location found");
+    } catch (err) {
+      //if the location services are disabled on the device level
+      let status = await Location.getProviderStatusAsync();
+      if (!status.locationServicesEnabled) {
+        setLocationAllowed(false);
+      }
     }
   }
 
-  let userLocation = navigator.geolocation.getCurrentPosition(
-    geoSuccess,
-    geoFail,
-    geoOptions
-  );
+  function handleAppStateChange(nextAppState) {
+    if (appState.match(/inactive|background/) && nextAppState === "active") {
+      //means the app has come from the bg to the foreground
+      setGettingLoc(true);
+    }
+    setAppState(nextAppState);
+  }
 
-  //TODO: Make the api key an evironment variable
-  //Geocoding from the coords to an address in order to get the suburb
+  AppState.addEventListener("change", handleAppStateChange);
 
   useEffect(() => {
+    getLocationAsync();
     axios
       .get(
         `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=AIzaSyBzJPfDtWK3x6VM7Zh6kH6TWLRTAeW_-7M`
@@ -79,10 +97,8 @@ export default function homeScreen() {
         });
       })
       .catch((err) => console.log(err));
-  }, [gettingLoc]);
 
-  //data for the weather info
-  useEffect(() => {
+    //data for the weather info
     fetch(
       `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=hourly&appid=e5057124de77f988e45eaa9a691985d1`
     )
@@ -105,6 +121,11 @@ export default function homeScreen() {
 
   let hourTime = new Date().getHours();
   if (hourTime >= 5 && hourTime < 18) {
+    if (locationAllowed == false) {
+      return (
+        <LocNotAllowed image="https://firebasestorage.googleapis.com/v0/b/australiahot-d5cc6.appspot.com/o/noon.jpg?alt=media&token=c09bbd5d-8740-4299-884b-66819c0316cc" />
+      );
+    }
     //showing the loading screen if the data has not be filled
     if (currentTemp === "") {
       //change this to be something cool when loading
@@ -124,9 +145,15 @@ export default function homeScreen() {
         suburb={suburb}
         textColor="#D7902F"
         image="https://firebasestorage.googleapis.com/v0/b/australiahot-d5cc6.appspot.com/o/noon.jpg?alt=media&token=c09bbd5d-8740-4299-884b-66819c0316cc"
+        bottomImage="https://firebasestorage.googleapis.com/v0/b/australiahot-d5cc6.appspot.com/o/noon-bottom.png?alt=media&token=c03c5760-58f4-4fb4-abbf-e407e5e9c800"
       />
     );
   } else {
+    if (locationAllowed == false) {
+      return (
+        <LocNotAllowed image="https://firebasestorage.googleapis.com/v0/b/australiahot-d5cc6.appspot.com/o/night.jpg?alt=media&token=c2bd96fc-cf73-41e4-8b8f-6c2b83867f07" />
+      );
+    }
     if (currentTemp === "") {
       //change this to be something cool when loading
       return (
@@ -145,6 +172,7 @@ export default function homeScreen() {
         suburb={suburb}
         textColor="#242B73"
         image="https://firebasestorage.googleapis.com/v0/b/australiahot-d5cc6.appspot.com/o/night.jpg?alt=media&token=c2bd96fc-cf73-41e4-8b8f-6c2b83867f07"
+        bottomImage="https://firebasestorage.googleapis.com/v0/b/australiahot-d5cc6.appspot.com/o/night-bottom.png?alt=media&token=27cdbaa1-24aa-416a-9c27-bbf761346cac"
       />
     );
   }

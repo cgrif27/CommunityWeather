@@ -144,6 +144,7 @@ export default function addPost() {
                 });
               setModalVisible(true);
               setCount(0);
+              setSelected(-1);
               setLoading(false);
             })
             .catch((e) => {
@@ -152,26 +153,6 @@ export default function addPost() {
             });
         });
     });
-    //adding the post with the required details
-    // const increment = firebase.firestore.FieldValue.increment(1);
-
-    // firebase
-    //   .firestore()
-    //   .collection("posts")
-    //   .doc(tempRanges[selected])
-    //   .collection("captions")
-    //   .doc("size")
-    //   .set({
-    //     count: increment,
-    //   })
-    //   .then(() => console.log("It updated"))
-    //   .catch((e) => console.log(e));
-
-    db.collection("posts")
-      .doc(tempRanges[selected])
-      .collection("captions")
-      .get()
-      .then((snapshot) => {});
   }
 
   if (!fontsLoaded) return <AppLoading />;

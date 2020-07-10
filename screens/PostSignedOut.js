@@ -19,12 +19,12 @@ import {
   Inter_500Medium,
 } from "@expo-google-fonts/inter";
 import getColor from "../localFunctions/getColor";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import NotLoggedIn from "../components/NotLoggedIn";
 import AppLoading from "../screens/loadingScreen";
 import PostHeader from "../components/postHeader";
 import PostModal from "../components/PostModal";
 import Account from "../screens/Account";
+import Login from "../components/Login";
 
 //firbase
 import firebase from "../firebase";

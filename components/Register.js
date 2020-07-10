@@ -78,7 +78,7 @@ export default function Register({ navigation }) {
           <Image
             source={{
               uri:
-                "https://lh3.googleusercontent.com/EmXXP4hbcAN2DehzM9Fd-Yf8txgLSTIh72o_pOjTl3DEBH0Qg3HkJ9er2MiDM1MMa1zI2OJPuZ2dOd-iGZfWi4ZZzswynsjhvKqeKo_vVYFvgEARtkLfAUxKoWmIcucns0ofaIGhxd8pZEBYHf0XFR1w5HBifXvedTcKcFYs646Am1lvCxb3yzm7iNRWx1V1Yhkji0MCNYBeuDalMiRPhqGd87Pi6-ry4ccpnzddwabYAxRdS25IsKl__eDJJIg3dR-bfog4OuQVEdD3VPwuvHdDE82N4BYiQO5DN_mHV_B8MIqR9GW65ccsc-kdzIYshprgMizsthIrPqlDzuxpwDcrtG6k3fZyQKBWUuQQpSC5nvA6zWgVStQmEqTqeWpP3lTuw0_UPHdu5ODQzwPLoB9dUDQhohanoZvgFdnMpNSj7nC7kpRcnNUGYp5o0Yjy6worPqJVkvg3MB0cn7tthm2ALukZG42WMl6gw0mU9DucQO7_MLC_ST9e8acxtDyCFSEcIEVysy1KgGgHepqvTh3yXTI_IS9IPc_bqJokIQhHvx7eLhwQlwE_Mpm-EIJT1yR-YAtnykNl3vh7rYYM5xAxj3kjzC3P6_elH1t5C1_X1e-FMxfgLMWX9X0-J5q_5F5-KpzgOa7fx-r6GFSqEn2r-CSMuCoYhs8ftX2CCbPpk3K3m2EF9rtDJ_UI=w1101-h1265-no?authuser=0",
+                "https://firebasestorage.googleapis.com/v0/b/australiahot-d5cc6.appspot.com/o/Logo%20With%20Text.png?alt=media&token=2a3e4189-4f9f-4cff-b9eb-58758ed891e4",
             }}
             style={styles.iconImage}
           />

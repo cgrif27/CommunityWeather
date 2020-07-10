@@ -123,8 +123,8 @@ export default function addPost({ navigation }) {
           <View>
             <Text style={styles.heading}>Edit Your Caption</Text>
             <Text style={styles.subheading}>
-              Edit your caption below, then press "Update Caption" and your
-              caption will be updated.
+              Edit your caption below, then press "Update your Caption". Your
+              caption will then be updated.
             </Text>
           </View>
           <TextInput
